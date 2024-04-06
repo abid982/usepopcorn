@@ -51,24 +51,28 @@ const average = arr =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
+  const [movies, setMovies] = useState(tempMovieData);
+
   return (
     <>
-      <NavBar />
-      <Main />
+      <NavBar movies={movies} />
+      <Main movies={movies} />
     </>
   );
 }
 
-function NavBar() {
+// Stateless Component
+function NavBar({ movies }) {
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   );
 }
 
+// Presentational Component
 function Logo() {
   return (
     <div className="logo">
@@ -78,6 +82,7 @@ function Logo() {
   );
 }
 
+// Stateful Component
 function Search() {
   const [query, setQuery] = useState('');
 
@@ -92,25 +97,28 @@ function Search() {
   );
 }
 
-function NumResults() {
+// Stateless Component
+function NumResults({ movies }) {
   return (
     <p className="num-results">
       {/* Found <strong>{movies.length}</strong> results */}
-      Found <strong>X</strong> results,
+      Found <strong>{movies.length}</strong> results,
     </p>
   );
 }
 
-function Main() {
+// Presentational Component
+function Main({ movies }) {
   return (
     <main className="main">
-      <ListBox />
+      <ListBox movies={movies} />
       <WatchedBox />
     </main>
   );
 }
 
-function ListBox() {
+// Stateful Component
+function ListBox({ movies }) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -118,13 +126,14 @@ function ListBox() {
       <button className="btn-toggle" onClick={() => setIsOpen1(open => !open)}>
         {isOpen1 ? '–' : '+'}
       </button>
-      {isOpen1 && <MovieList />}
+      {isOpen1 && <MovieList movies={movies} />}
     </div>
   );
 }
 
-function MovieList() {
-  const [movies, setMovies] = useState(tempMovieData);
+// Stateful Component
+function MovieList({ movies }) {
+  // const [movies, setMovies] = useState(tempMovieData);
 
   return (
     <ul className="list">
@@ -135,6 +144,7 @@ function MovieList() {
   );
 }
 
+// Presentational Component
 function Movie({ movie }) {
   return (
     <li>
@@ -150,6 +160,7 @@ function Movie({ movie }) {
   );
 }
 
+// Stateful Component
 function WatchedBox() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen2, setIsOpen2] = useState(true);
@@ -169,6 +180,7 @@ function WatchedBox() {
   );
 }
 
+// Presentational Component
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map(movie => movie.imdbRating));
   const avgUserRating = average(watched.map(movie => movie.userRating));
@@ -209,6 +221,7 @@ function WatchedList({ watched }) {
   );
 }
 
+// Presentational Component
 function WatchedMovie({ movie }) {
   return (
     <li>
