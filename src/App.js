@@ -69,6 +69,9 @@ export default function App() {
           <MovieList movies={movies} />
         </ListBox>
         <WatchedBox /> */}
+        {/* Composition */}
+        {/* We can use the children prop for composition or an explicitly defined prop */}
+        {/* Implicit Prop */}
         <Box>
           <MovieList movies={movies} />
         </Box>
@@ -76,6 +79,17 @@ export default function App() {
           <WatchedSummary watched={watched} />
           <WatchedList watched={watched} />
         </Box>
+
+        {/* Explicit Prop */}
+        {/* <Box element={<MovieList movies={movies} />} />
+        <Box
+          element={
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedList watched={watched} />
+            </>
+          }
+        /> */}
       </Main>
     </>
   );
@@ -180,6 +194,22 @@ function Main({ children }) {
 //   );
 // }
 
+// Explicit Prop
+// function Box({ element }) {
+//   const [isOpen, setIsOpen] = useState(true);
+
+//   return (
+//     <div className="box">
+//       <button className="btn-toggle" onClick={() => setIsOpen(open => !open)}>
+//         {isOpen ? '–' : '+'}
+//       </button>
+//       {/* {isOpen && <MovieList movies={movies} />} */}
+//       {isOpen && element}
+//     </div>
+//   );
+// }
+
+// Implicit Prop
 function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
 
